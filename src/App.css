@@ -41,7 +41,7 @@
 
 /* OMR Sheet Styles */
 .omr-sheet {
-  font-family: Arial, sans-serif; /* Clean sans-serif like the image */
+  font-family: Arial, sans-serif;
   color: #1e293b;
   position: relative;
 }
@@ -174,7 +174,7 @@
 .main-grid {
   display: flex;
   justify-content: space-between;
-  gap: 15px;
+  gap: 25px; /* Increased gap to fit squares between columns */
 }
 
 .column {
@@ -182,6 +182,27 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: relative;
+}
+
+/* Marker Squares */
+.marker-square {
+  width: 12px;
+  height: 12px;
+  background-color: #000;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+.marker-square.left {
+  left: -20px;
+}
+.marker-square.right {
+  right: -20px;
+}
+.roll-row-wrapper {
+  position: relative;
 }
 
 /* Roll No Section */
@@ -197,6 +218,12 @@
   margin-bottom: 2px;
 }
 
+.roll-boxes-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 .roll-boxes {
   display: flex;
   border: 1px solid #333;
@@ -216,26 +243,24 @@
 
 .roll-bubbles-grid {
   display: flex;
+  flex-direction: column;
   margin-top: 5px;
+  gap: 3px;
+}
+.roll-row {
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 .roll-row-label {
   width: 15px;
   font-size: 0.75rem;
   text-align: right;
   margin-right: 5px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
 }
-.roll-cols {
+.roll-row-bubbles {
   display: flex;
-}
-.roll-col {
-  display: flex;
-  flex-direction: column;
-  width: 20px;
-  align-items: center;
-  gap: 3px;
+  gap: 2px; /* space between bubbles */
 }
 
 /* Block & Question Styling */
@@ -261,6 +286,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  position: relative; /* important for marker squares */
 }
 
 .q-number {
@@ -285,7 +311,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 0px; /* Hide inner text, typical for OMR or make very small */
+  font-size: 0px; 
   color: transparent;
   transition: background-color 0.1s, border-color 0.1s;
 }
@@ -295,7 +321,7 @@
 }
 
 .bubble.selected {
-  background-color: #1e3a8a; /* Deep blue for selected state */
+  background-color: #1e3a8a; 
   border-color: #1e3a8a;
 }
 

@@ -11,6 +11,12 @@ function App() {
   const [date, setDate] = useState('');
   const sheetRef = useRef(null);
 
+  const leftSquaresCol1 = [1, 6, 10, 14, 18, 23];
+  const rightSquaresCol1 = [1, 6, 10, 14, 18, 23];
+  const rightSquaresCol2 = [24, 28, 32, 36, 41, 45, 49, 53, 58];
+  const rightSquaresCol3 = [59, 63, 67, 71, 76, 80, 84, 88, 93];
+  const rightSquaresCol4 = [94, 98, 102, 106, 111, 115, 119, 123, 128];
+
   const handleOptionClick = (qNum, optIdx) => {
     setAnswers(prev => ({
       ...prev,
@@ -59,28 +65,40 @@ function App() {
     pdf.save('omr-sheet.pdf');
   };
 
-  const renderQuestionBlock = (start, end) => {
+  const renderQuestionBlock = (start, end, colIndex) => {
     const questions = [];
     for (let i = start; i <= end; i++) {
+      const isDummy = i > 100;
+      
+      const hasLeftSquare = colIndex === 1 && leftSquaresCol1.includes(i);
+      const hasRightSquare = 
+        (colIndex === 1 && rightSquaresCol1.includes(i)) ||
+        (colIndex === 2 && rightSquaresCol2.includes(i)) ||
+        (colIndex === 3 && rightSquaresCol3.includes(i)) ||
+        (colIndex === 4 && rightSquaresCol4.includes(i));
+        
       questions.push(
-        <div key={i} className="question-row">
-          <div className="q-number">{i}</div>
+        <div key={i} className="question-row" style={isDummy ? { visibility: 'hidden' } : {}}>
+          {hasLeftSquare && <div className="marker-square left" style={{ visibility: 'visible' }} />}
+          <div className="q-number">{isDummy ? '' : i}</div>
           <div className="options">
             {['A', 'B', 'C', 'D'].map((opt, idx) => (
               <div
                 key={idx}
                 className={`bubble ${answers[i] === idx ? 'selected' : ''}`}
-                onClick={() => handleOptionClick(i, idx)}
+                onClick={() => !isDummy && handleOptionClick(i, idx)}
               >
               </div>
             ))}
           </div>
+          {hasRightSquare && <div className="marker-square right" style={{ visibility: 'visible' }} />}
         </div>
       );
     }
+    const isDummyBlock = start > 100;
     return (
       <div className="question-block" key={`${start}-${end}`}>
-        <div className="block-header">
+        <div className="block-header" style={isDummyBlock ? { visibility: 'hidden' } : {}}>
           <span>A</span><span>B</span><span>C</span><span>D</span>
         </div>
         {questions}
@@ -92,7 +110,7 @@ function App() {
     <div className="app-container">
       <div className="omr-sheet-wrapper" ref={sheetRef}>
         <div className="omr-sheet">
-          {/* Black alignment squares */}
+          {/* Black alignment squares at corners */}
           <div className="black-square bs-tl"></div>
           <div className="black-square bs-tr"></div>
           <div className="black-square bs-bl"></div>
@@ -152,28 +170,35 @@ function App() {
             <div className="column">
               <div className="roll-no-section">
                 <div className="roll-no-label">Roll No</div>
-                <div className="roll-boxes">
-                  {rollNo.map((val, idx) => (
-                    <div key={idx} className="roll-box">{val !== null ? val : ''}</div>
-                  ))}
+                <div className="roll-boxes-wrapper">
+                  <div className="marker-square left"></div>
+                  <div className="marker-square right"></div>
+                  <div className="roll-boxes">
+                    {rollNo.map((val, idx) => (
+                      <div key={idx} className="roll-box">{val !== null ? val : ''}</div>
+                    ))}
+                  </div>
                 </div>
                 <div className="roll-bubbles-grid">
-                  <div className="roll-row-label">
-                    {[...Array(10).keys()].map(i => <div key={i}>{i}</div>)}
-                  </div>
-                  <div className="roll-cols">
-                    {[0, 1, 2, 3, 4, 5].map(colIdx => (
-                      <div key={colIdx} className="roll-col">
-                        {[...Array(10).keys()].map(val => (
+                  {[...Array(10).keys()].map(rowIdx => (
+                    <div key={rowIdx} className="roll-row">
+                      {rowIdx === 3 && <div className="marker-square left" />}
+                      {rowIdx === 3 && <div className="marker-square right" />}
+                      {rowIdx === 8 && <div className="marker-square left" />}
+                      {rowIdx === 8 && <div className="marker-square right" />}
+                      
+                      <div className="roll-row-label">{rowIdx}</div>
+                      <div className="roll-row-bubbles">
+                        {[0, 1, 2, 3, 4, 5].map(colIdx => (
                           <div
-                            key={val}
-                            className={`bubble ${rollNo[colIdx] === val ? 'selected' : ''}`}
-                            onClick={() => handleRollClick(colIdx, val)}
+                            key={colIdx}
+                            className={`bubble ${rollNo[colIdx] === rowIdx ? 'selected' : ''}`}
+                            onClick={() => handleRollClick(colIdx, rowIdx)}
                           ></div>
                         ))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -182,35 +207,42 @@ function App() {
                 <div>100 प्रश्न, 80 मिनट</div>
               </div>
 
-              {renderQuestionBlock(1, 5)}
-              {renderQuestionBlock(6, 10)}
-              {renderQuestionBlock(11, 15)}
-              {renderQuestionBlock(16, 23)}
+              {renderQuestionBlock(1, 5, 1)}
+              {renderQuestionBlock(6, 10, 1)}
+              {renderQuestionBlock(11, 15, 1)}
+              {renderQuestionBlock(16, 23, 1)}
             </div>
 
             {/* Column 2 */}
             <div className="column">
-              {renderQuestionBlock(24, 30)}
-              {renderQuestionBlock(31, 35)}
-              {renderQuestionBlock(36, 40)}
-              {renderQuestionBlock(41, 45)}
-              {renderQuestionBlock(46, 50)}
-              {renderQuestionBlock(51, 58)}
+              {renderQuestionBlock(24, 30, 2)}
+              {renderQuestionBlock(31, 35, 2)}
+              {renderQuestionBlock(36, 40, 2)}
+              {renderQuestionBlock(41, 45, 2)}
+              {renderQuestionBlock(46, 50, 2)}
+              {renderQuestionBlock(51, 58, 2)}
             </div>
 
             {/* Column 3 */}
             <div className="column">
-              {renderQuestionBlock(59, 65)}
-              {renderQuestionBlock(66, 70)}
-              {renderQuestionBlock(71, 75)}
-              {renderQuestionBlock(76, 80)}
-              {renderQuestionBlock(81, 85)}
-              {renderQuestionBlock(86, 93)}
+              {renderQuestionBlock(59, 65, 3)}
+              {renderQuestionBlock(66, 70, 3)}
+              {renderQuestionBlock(71, 75, 3)}
+              {renderQuestionBlock(76, 80, 3)}
+              {renderQuestionBlock(81, 85, 3)}
+              {renderQuestionBlock(86, 93, 3)}
             </div>
 
             {/* Column 4 */}
             <div className="column">
-              {renderQuestionBlock(94, 100)}
+              {renderQuestionBlock(94, 100, 4)}
+              
+              {/* Dummy blocks to render the squares aligned with Col 3 */}
+              {renderQuestionBlock(101, 105, 4)}
+              {renderQuestionBlock(106, 110, 4)}
+              {renderQuestionBlock(111, 115, 4)}
+              {renderQuestionBlock(116, 120, 4)}
+              {renderQuestionBlock(121, 128, 4)}
             </div>
           </div>
         </div>
