@@ -1,0 +1,334 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: #f1f5f9;
+  min-height: 100vh;
+}
+
+.omr-sheet-wrapper {
+  background: white;
+  padding: 40px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  max-width: 900px;
+  width: 100%;
+}
+
+.actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5);
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px -1px rgba(59, 130, 246, 0.6);
+}
+
+/* OMR Sheet Styles */
+.omr-sheet {
+  font-family: Arial, sans-serif; /* Clean sans-serif like the image */
+  color: #1e293b;
+  position: relative;
+}
+
+/* Header Section */
+.header-section {
+  border: 1px solid #333;
+  margin-bottom: 20px;
+}
+
+.instructions-box {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  font-size: 0.85rem;
+}
+
+.instructions-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.instructions-list li {
+  margin-bottom: 2px;
+}
+
+.methods-img {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.method-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.method-bubble {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #333;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.method-bubble.filled {
+  background-color: #333;
+}
+.method-bubble.cross {
+  position: relative;
+}
+.method-bubble.cross::after {
+  content: '✕';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+}
+.method-bubble.tick {
+  position: relative;
+}
+.method-bubble.tick::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+}
+.method-bubble.dot {
+  position: relative;
+}
+.method-bubble.dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background: #333;
+  border-radius: 50%;
+}
+
+.info-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-row {
+  display: flex;
+  border-bottom: 1px solid #333;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-field {
+  flex: 1;
+  display: flex;
+  border-right: 1px solid #333;
+  padding: 8px;
+  align-items: center;
+}
+.info-field:last-child {
+  border-right: none;
+}
+
+.info-field label {
+  font-weight: bold;
+  margin-right: 8px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.info-field input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background: transparent;
+}
+
+/* Main Grid Area */
+.main-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Roll No Section */
+.roll-no-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.roll-no-label {
+  font-size: 0.85rem;
+  margin-bottom: 2px;
+}
+
+.roll-boxes {
+  display: flex;
+  border: 1px solid #333;
+}
+.roll-box {
+  width: 20px;
+  height: 24px;
+  border-right: 1px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.roll-box:last-child {
+  border-right: none;
+}
+
+.roll-bubbles-grid {
+  display: flex;
+  margin-top: 5px;
+}
+.roll-row-label {
+  width: 15px;
+  font-size: 0.75rem;
+  text-align: right;
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.roll-cols {
+  display: flex;
+}
+.roll-col {
+  display: flex;
+  flex-direction: column;
+  width: 20px;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Block & Question Styling */
+.question-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.block-header {
+  display: flex;
+  margin-left: 24px;
+  gap: 5px;
+  font-size: 0.75rem;
+  color: #555;
+}
+.block-header span {
+  width: 18px;
+  text-align: center;
+}
+
+.question-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.q-number {
+  width: 18px;
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.options {
+  display: flex;
+  gap: 5px;
+}
+
+/* Bubble Styling */
+.bubble {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #475569;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0px; /* Hide inner text, typical for OMR or make very small */
+  color: transparent;
+  transition: background-color 0.1s, border-color 0.1s;
+}
+
+.bubble:hover {
+  background-color: #e2e8f0;
+}
+
+.bubble.selected {
+  background-color: #1e3a8a; /* Deep blue for selected state */
+  border-color: #1e3a8a;
+}
+
+.black-square {
+  width: 12px;
+  height: 12px;
+  background-color: #000;
+  position: absolute;
+}
+.bs-tl { top: -20px; left: -20px; }
+.bs-tr { top: -20px; right: -20px; }
+.bs-bl { bottom: -20px; left: -20px; }
+.bs-br { bottom: -20px; right: -20px; }
+
+/* Subtext */
+.subtext {
+  font-size: 0.75rem;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+@media print {
+  .app-container {
+    padding: 0;
+    background: white;
+  }
+  .omr-sheet-wrapper {
+    box-shadow: none;
+    padding: 0;
+  }
+  .actions {
+    display: none;
+  }
+}
