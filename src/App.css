@@ -1,10 +1,9 @@
 .app-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: block;
   padding: 2rem;
   background-color: #f1f5f9;
   min-height: 100vh;
+  overflow-x: auto;
 }
 
 .omr-sheet-wrapper {
@@ -12,8 +11,8 @@
   padding: 40px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  max-width: 900px;
-  width: 100%;
+  width: 800px;
+  margin: 0 auto;
 }
 
 .actions {

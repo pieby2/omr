@@ -26,7 +26,20 @@ function App() {
 
   const handleSavePdf = async () => {
     const element = sheetRef.current;
-    const canvas = await html2canvas(element, { scale: 2 });
+    
+    // Reset scroll position to prevent offset issues on mobile
+    window.scrollTo(0, 0);
+    
+    const canvas = await html2canvas(element, { 
+      scale: 2,
+      useCORS: true,
+      windowWidth: element.scrollWidth,
+      windowHeight: element.scrollHeight,
+      scrollX: 0,
+      scrollY: 0,
+      x: 0,
+      y: 0
+    });
     const imgData = canvas.toDataURL('image/png');
     
     const pdf = new jsPDF('p', 'mm', 'a4');
