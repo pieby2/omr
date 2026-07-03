@@ -44,9 +44,18 @@ function App() {
     
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    const pdfHeight = pdf.internal.pageSize.getHeight();
     
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    const imgProps = pdf.getImageProperties(imgData);
+    const ratio = Math.min(pdfWidth / imgProps.width, pdfHeight / imgProps.height);
+    
+    const scaledWidth = imgProps.width * ratio;
+    const scaledHeight = imgProps.height * ratio;
+    
+    // Center it horizontally
+    const x = (pdfWidth - scaledWidth) / 2;
+    
+    pdf.addImage(imgData, 'PNG', x, 0, scaledWidth, scaledHeight);
     pdf.save('omr-sheet.pdf');
   };
 
