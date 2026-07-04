@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   const [answers, setAnswers] = useState({});
-  const [rollNo, setRollNo] = useState(Array(6).fill(null));
+  const [rollNo, setRollNo] = useState(Array(5).fill(null));
   const [name, setName] = useState('');
   const [testName, setTestName] = useState('');
   const [date, setDate] = useState('');
@@ -189,7 +189,7 @@ function App() {
                       
                       <div className="roll-row-label">{rowIdx}</div>
                       <div className="roll-row-bubbles">
-                        {[0, 1, 2, 3, 4, 5].map(colIdx => (
+                        {[0, 1, 2, 3, 4].map(colIdx => (
                           <div
                             key={colIdx}
                             className={`bubble ${rollNo[colIdx] === rowIdx ? 'selected' : ''}`}
