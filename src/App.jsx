@@ -110,12 +110,6 @@ function App() {
     <div className="app-container">
       <div className="omr-sheet-wrapper" ref={sheetRef}>
         <div className="omr-sheet">
-          {/* Black alignment squares at corners */}
-          <div className="black-square bs-tl"></div>
-          <div className="black-square bs-tr"></div>
-          <div className="black-square bs-bl"></div>
-          <div className="black-square bs-br"></div>
-
           <div className="header-section">
             <div className="instructions-box">
               <div>

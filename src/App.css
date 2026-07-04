@@ -325,17 +325,6 @@
   border-color: #1e3a8a;
 }
 
-.black-square {
-  width: 12px;
-  height: 12px;
-  background-color: #000;
-  position: absolute;
-}
-.bs-tl { top: -20px; left: -20px; }
-.bs-tr { top: -20px; right: -20px; }
-.bs-bl { bottom: -20px; left: -20px; }
-.bs-br { bottom: -20px; right: -20px; }
-
 /* Subtext */
 .subtext {
   font-size: 0.75rem;
